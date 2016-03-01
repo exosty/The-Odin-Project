@@ -1,0 +1,60 @@
+body {
+}
+.search{
+	width:450px;
+	height:20px;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #DDDDDD;
+}
+
+.google-search{ 
+	padding-top: 150px;
+	text-align: center;
+}
+.search{
+	padding: 2px;
+}
+.sub-logo{
+    color: #4285f4;
+    font-size: 16px;
+    position: relative;
+
+    left: 100px;
+    top: -25px;
+}
+.logo-images{
+	border-radius: 10px;
+}
+.photo-icon{		
+	border-radius: 10px;
+	margin-top: -5px;
+}
+.button {
+    background-color: #e7e7e7;
+    border: 1px solid;
+    text-align: center;
+    text-decoration: none;
+    height: 20x;
+    margin-top: 10px;  
+}
