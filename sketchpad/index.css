@@ -1,0 +1,36 @@
+#grid{
+	margin: auto;
+	border-style: solid;
+	border-width: 2px;
+	border-color: black;
+}
+.cell{
+	margin: 0px;
+	padding: 0px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: white;
+	background-color: #282841;
+	width: 48px;
+	height: 48px;	
+	float: left;
+	clear: right;
+	}
+#buttons{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 150px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: black;
+}
+#btn1, #btn2, #btn3, #btn4, #btn5{
+	background-color: #D5D5D5;
+	border-style: none;
+	border-width: 0px;
+	width: 150px;
+	height: 40px;	
+	float: left;
+	clear: right;
+}
