@@ -11,19 +11,26 @@ require "silly_blocks"
 describe "some silly block functions" do
 
   describe "reverser" do
+
     it "reverses the string returned by the default block" do
       result = reverser do
         "hello"
       end
+      
       expect(result).to eq("olleh")
+
     end
 
     it "reverses each word in the string returned by the default block" do
+
       result = reverser do
         "hello dolly"
       end
+
       expect(result).to eq("olleh yllod")
+
     end
+
   end
 
   describe "adder" do
