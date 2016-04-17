@@ -1,8 +1,9 @@
 def translate string
+	punctuationSymbols = ['?','.',',','!']
 	vowels = ['a', 'e', 'i', 'o', 'u']
 	words = string.split
 	words.each do |word|
-		if vowels.include?(word[0]) && 
+		if vowels.include?(word[0])  
 			word << 'ay'
 		else
 			unless vowels.include?(word[1])
@@ -32,10 +33,19 @@ def translate string
 			end
 
 		end
-		
+
 		unless word == word.downcase
 			word.capitalize!
 		end
+
+		symbol = ''
+		word.split('').each do |e|
+			if punctuationSymbols.include?(e)
+				symbol = e
+				word[word.split('').index(e)] = ''
+			end
+		end
+		word << symbol
 
 	end
 
