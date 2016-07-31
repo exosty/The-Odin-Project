@@ -20,46 +20,7 @@ class Board
   end
 
   def draw?
-    if @board.count('x') + @board.count('o') == 9
-      true
-    else
-      false
-    end
-  end
-
-  def win?
-    if lines? || columns? || diagonals?
-      true
-    else
-      false
-    end
-  end
-
-  private
-
-  def lines?
-    if ((@board[0] == @board[1] && @board[1] == @board[2]) ||
-      (@board[3] == @board[4] && @board[4] == @board[5]) ||
-      (@board[6] == @board[7] && @board[7] == @board[8]))
-      true
-    else
-      false
-    end
-  end
-
-  def columns?
-    if ((@board[0] == @board[3] && @board[3] == @board[6]) ||
-      (@board[1] == @board[4] && @board[4] == @board[7]) ||
-      (@board[2] == @board[5] && @board[5] == @board[8]))
-      true
-    else
-      false
-    end
-  end
-
-  def diagonals?
-    if (@board[0] == @board[4] && @board[4] == @board[8]) ||
-       (@board[2] == @board[4] && @board[4] == @board[6])
+    if @board.count('X') + @board.count('O') == 9
       true
     else
       false

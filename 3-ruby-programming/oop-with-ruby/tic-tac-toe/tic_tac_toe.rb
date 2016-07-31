@@ -3,24 +3,25 @@ require_relative 'player'
 
 class TicTacToe
   def initialize
-    puts "Please, introduce yourself X-player."
-    @p1 = Player.new(gets.chomp.capitalize!, 'x')
-    puts "Please, introduce yourself O-player."
-    @p2 = Player.new(gets.chomp.capitalize!, 'o')
+    puts "You playing 'X'. Please, enter your name."
+    @p1 = Player.new(gets.chomp.capitalize!, 'X')
+    puts "You playing 'O'. Please, enter your name."
+    @p2 = Player.new(gets.chomp.capitalize!, 'O')
 
     @board = Board.new
+  end
 
+  def start
+    @board.show
     make_move(@p1)
   end
 
   private
 
   def make_move(player)
+    @board.modify(player.move, player.sign)
     @board.show
-    puts "Please, make move #{player.name}."
-    number = gets.chomp.to_i
-    @board.modify(number, player.sign)
-    if @board.win?
+    if player.win?
       puts "#{player.name} won."
     elsif @board.draw?
       puts "Draw."
@@ -32,10 +33,11 @@ class TicTacToe
   def swap_turn(player)
     if player == @p1
       make_move(@p2)
-    else
+    elsif player == @p2
       make_move(@p1)
     end
   end
 
 end
-TicTacToe.new
+
+TicTacToe.new.start
