@@ -20,6 +20,9 @@ class Mastermind
   def play
     puts "#{codemaker.name}, generate your code of 1..6 numbers."
     make_secret_code
+    puts "Code generated!"
+    puts ''
+
 
     puts "#{codebreaker.name}, try to guess seceret code."
     puts "##{@attempts} attempt."

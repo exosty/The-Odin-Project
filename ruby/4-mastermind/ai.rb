@@ -13,10 +13,7 @@ class AI
   def guess_code(wrong_code, wrong_feedback)
     puts "Last guesstimate: #{wrong_code}. Last feedback #{wrong_feedback}."
     analyze(wrong_code, wrong_feedback)
-    p @possible_codes.size
-    guesstimate = @possible_codes.sample
-    puts "#{guesstimate}"
-    guesstimate
+    @possible_codes.sample
   end
 
   private
