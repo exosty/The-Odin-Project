@@ -3,36 +3,68 @@ require_relative 'ai'
 require_relative 'board'
 
 class Mastermind
+
   def initialize
-    puts "Enter your name."
-    @person = Person.new(gets.chomp.capitalize!)
-    @pool = @person.enter_pool
-    @ai = AI.new(@pool)
-    puts "You codebreaker(1) or codemaker(2)?"
+    puts "Please, enter your name."
+    @person = Person.new
+    @ai = AI.new
+    @attempts = 1
+
+    puts "Enter '1' if u want to be codebreaker."
+    puts "Enter '2' if u want to be codemaker."
     @role = gets.chomp.to_i
-    @attempts = 0
+
+    play
   end
 
-  def start
-    @board = Board.new(codemaker.enter_code(@pool))
-    p @board.secret_code
+  def play
+    puts "#{codemaker.name}, generate your code of 1..6 numbers."
+    make_secret_code
 
-    puts "#{guess.name} won!"
+    puts "#{codebreaker.name}, try to guess seceret code."
+    puts "##{@attempts} attempt."
+    first_attempt
+
+    unless codebreaker_win?
+      until codebreaker_win? || codemaker_win? do
+        puts ''
+        @attempts +=1
+        puts "##{@attempts} attempt."
+        guess
+      end
+    end
   end
 
   def guess
-    while @attempts<12 do
-      @attempts+=1
-      puts "It's #{codebreaker.name}'s #{@attempts} attempt."
-      guesstimate = codebreaker.guess_code(@pool)
-      feedbacks = @board.check(guesstimate)
-      p feedbacks.last
-      if feedbacks.last == [1,1,1,1]
-        return codebreaker
-      end
-    end
+    @guesstimate = codebreaker.guess_code(@guesstimate, @feedback)
+    @feedback = @board.generate_feedback(@guesstimate.clone)
+  end
 
-    codemaker
+  def first_attempt
+    @guesstimate = codebreaker.generate_code
+    @feedback = @board.generate_feedback(@guesstimate.clone)
+  end
+
+  def make_secret_code
+    @board =  Board.new(codemaker.generate_code)
+  end
+
+  def codemaker_win?
+    if @attempts >= 12
+      puts "#{codemaker.name} won!"
+      true
+    else
+      false
+    end
+  end
+
+  def codebreaker_win?
+    if @board.check(@guesstimate)
+      puts "#{codebreaker.name} won!"
+      true
+    else
+      false
+    end
   end
 
   def codemaker
@@ -46,5 +78,4 @@ class Mastermind
   end
 end
 
-mastermind = Mastermind.new
-mastermind.start
+Mastermind.new

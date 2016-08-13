@@ -1,16 +1,18 @@
 class Board
-  attr_reader :secret_code, :feedback, :codes
-
   def initialize secret_code
     @secret_code = secret_code
-    @codes = Array.new
-    @feedbacks = Array.new
-
   end
 
-  def check code
+  def check(code)
+    if code == @secret_code
+      true
+    else
+      false
+    end
+  end
+
+  def generate_feedback(code)
     feedback = Array.new
-    @codes << code
 
     @secret_code.each_with_index do |item, index|
       if code.include?(item)
@@ -19,15 +21,13 @@ class Board
           code[index]=nil
         else
           feedback << 0
-          code[code.find_index(item)]=nil
+          code[code.index(item)]=nil
         end
       else
         feedback << -1
       end
     end
-    @feedbacks << feedback.shuffle!
 
-    @feedbacks
+    feedback.shuffle!
   end
-
 end

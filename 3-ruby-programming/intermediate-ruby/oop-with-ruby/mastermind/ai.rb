@@ -1,21 +1,30 @@
 class AI
-  attr_reader :name, :possible_codes
+  attr_reader :name
 
-  def initialize pool, name="Sneaky AI"
+  def initialize name="Sneaky AI"
     @name = "Sneaky AI"
-
-    @possible_codes = pool.repeated_permutation(4).to_a
+    @possible_codes = [1,2,3,4,5,6].repeated_permutation(4).to_a
   end
 
   def generate_code
     @possible_codes.sample
   end
 
-  def guess(wrong_code, wrong_feedback)
-    @possible_codes.each do |code|
-      possible_feedback = generate_possible_feedback(code, wrong_code)
-      print "#{possible_feedback} + #{code} + #{wrong_code}"
-      puts ''
+  def guess_code(wrong_code, wrong_feedback)
+    puts "Last guesstimate: #{wrong_code}. Last feedback #{wrong_feedback}."
+    analyze(wrong_code, wrong_feedback)
+    p @possible_codes.size
+    guesstimate = @possible_codes.sample
+    puts "#{guesstimate}"
+    guesstimate
+  end
+
+  private
+
+  def analyze(wrong_code, wrong_feedback)
+    @possible_codes.delete_if do |possible_code|
+      possible_feedback = generate_possible_feedback(possible_code, wrong_code.clone)
+      wrong_solution?(possible_feedback,wrong_feedback)
     end
   end
 
@@ -26,10 +35,10 @@ class AI
       if wrong_code.include?(item)
         if item == wrong_code[index]
           feedback << 1
-          wrong_code[index]=''
+          wrong_code[index]=nil
         else
           feedback << 0
-          wrong_code[wrong_code.find_index(item)]=''
+          wrong_code[wrong_code.index(item)]=nil
         end
       else
         feedback << -1
@@ -39,8 +48,6 @@ class AI
   end
 
   def wrong_solution?(possible_feedback, wrong_feedback)
-    return possible_feedback.sort == wrong_feedback.sort ? true : false
+    return possible_feedback.sort != wrong_feedback.sort ? true : false
   end
 end
-ai = AI.new([1,2,3,4])
-ai.guess([1,1,2,2], [1,-1,0,-1])

@@ -1,21 +1,25 @@
 class Person
   attr_reader :name
 
-  def initialize name
-    @name = name
+  def initialize
+    @name = gets.chomp.capitalize
   end
 
-  def generate_pool
-    puts "#{name}, enter pool of numbers to play with."
-    pool = gets.chomp.scan(/\d/)
+  def guess_code(wrong_code, wrong_feedback)
+    puts "Last guesstimate: #{wrong_code}. Last feedback #{wrong_feedback}."
+    generate_code
   end
 
-  def generate_code pool
-    puts "#{name}, enter 4-sign length code containing only #{pool}."
-    code = gets.chomp.scan(/\d/)
+  def generate_code
+    code = enter_code
   end
 
-  def guess pool
-    generate_code pool
+  private
+
+  def enter_code
+    value = gets.chomp.scan(/\d/)
+    value.map! do |item|
+      item.to_i
+    end
   end
 end
